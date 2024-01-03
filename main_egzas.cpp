@@ -4,19 +4,20 @@ void simboliuPasalinimas(string& zodis) {
 	string galutinis;
 	for (char c : zodis) 
 	{
-		if (std::isalnum(c)) 
+		if (std::isalnum(c))
 		{
 			galutinis += std::tolower(c);
 		}
 	}
-
+	if (galutinis != "")
 	zodis = galutinis;
 }
 
-void count(string eil, unordered_map<string, int>& zodziai, unordered_map<string, vector<int>>& eilutes, int eil_sk) {
+void count(string eil, map<string, int>& zodziai, map<string, vector<int>>& eilutes, int eil_sk) {
 	stringstream ss(eil);
 	string zodis;
-	while (ss >> zodis) {
+	while (ss >> zodis) 
+	{
 		simboliuPasalinimas(zodis);
 		zodziai[zodis]++;
 		eilutes[zodis].push_back(eil_sk);
@@ -27,7 +28,6 @@ void ieskotiURL(string failo_pav) {
 	ifstream fd(failo_pav);
 	ofstream fr("URL_rez.txt");
 	regex urlRegex(R"((https?:\/\/[^\s]+)|(www\.[^\s]+)|(?:[^\.\/]+\.[^\.\/]+))");
-	smatch matches;
 	string eilutes;
 	while (getline(fd, eilutes)) 
 	{
@@ -35,7 +35,7 @@ void ieskotiURL(string failo_pav) {
 		{
 			string url = it->str();
 			if (regex_match(url, regex(R"(https?:\/\/[^\s]+)")) || regex_match(url, regex(R"(www\.[^\s]+)")) ||
-				regex_match(url, regex(R"(^[^\s]+\.(?:com|lt)$)"))) 
+				regex_match(url, regex(R"(^[^\s]+\.(?:com|lt)$)")))
 			{
 				fr << url << endl;
 			}
@@ -47,8 +47,8 @@ void ieskotiURL(string failo_pav) {
 }
 
 void WordCount() {
-	unordered_map<string, int> zodziai;
-	unordered_map<string, vector<int>> eilutes;
+	map<string, int> zodziai;
+	map<string, vector<int>> eilutes;
 	string eil, failo_pav;
 	int eil_sk = 0;
 	cout << "Iveskite failo pavadinima: "; 
